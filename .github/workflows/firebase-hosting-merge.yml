@@ -7,25 +7,27 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  setup_node:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: corepack enable
-      - uses: actions/setup-node@v4
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "yarn"
-      - run: yarn set version berry
-      - run: yarn
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: yarn build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Setup Yarn & Install Dependencies
+        run: yarn set version berry && yarn install
+
+      - name: Build the app
+        run: yarn build
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          node-version: 20
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_UNSPSC_SEARCH_ENGINE }}"
           channelId: live
