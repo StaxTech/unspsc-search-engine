@@ -2,6 +2,15 @@
   "name": "unspsc-search-engine",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Danford Gidraph",
+    "email": "gidraph@gidraphdanford.dev",
+    "url": "https://gidraphdanford.dev"
+  },
+  "engines": {
+    "node": "20",
+    "yarn": ">=4.1.1"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
