@@ -9,6 +9,9 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app/
     steps:
       - name: Enable Corepack
         run: corepack enable
@@ -17,11 +20,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # cache: "yarn"
-          # cache-dependency-path: "../yarn.lock"
+          cache: "yarn"
+          cache-dependency-path: "./app/yarn.lock"
 
       - name: Setup Yarn & Install Dependencies
-        run: yarn set version berry && yarn
+        run: |
+          yarn config set cache-folder ./app/.yarn-cache 
+          yarn config set enableImmutableInstalls true
+          yarn set version berry && yarn
 
       - name: Build the app
         run: yarn build
