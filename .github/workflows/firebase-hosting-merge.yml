@@ -17,10 +17,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # cache: "yarn"
+          cache: "yarn"
+          cache-dependency-path: "../yarn.lock"
 
       - name: Setup Yarn & Install Dependencies
-        run: yarn set version berry && yarn install
+        run: yarn set version berry && yarn
 
       - name: Build the app
         run: yarn build
