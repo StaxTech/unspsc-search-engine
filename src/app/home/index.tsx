@@ -145,7 +145,7 @@ const EnginePage = () => {
             freeSolo
             disableClearable
             options={[]}
-            onInputChange={(event, value) => debounceSearch(value, 1000)}
+            onInputChange={(event, value) => debounceSearch(value, 300)}
             style={{ width: "90vw" }}
           />
         </FormControl>
